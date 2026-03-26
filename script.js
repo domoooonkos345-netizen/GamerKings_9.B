@@ -477,8 +477,8 @@ function buildGeneratedArt(type, item, variant = 0) {
 }
 
 const FALLBACK_IMAGES = {
-    games: "assets/hero/feature-releases.jpg",
-    gear: "assets/hero/feature-tech.jpg"
+    games: "img/h-feature-releases.jpg",
+    gear: "img/h-feature-tech.jpg"
 };
 
 const GAME_MAIN_CATEGORIES = [
@@ -569,9 +569,9 @@ function buildImageWithFallback(src, fallback, alt, className) {
 function buildGallery(slug, primaryImage) {
     return [
         primaryImage,
-        `assets/gallery/${slug}-1.jpg`,
-        `assets/gallery/${slug}-2.jpg`,
-        `assets/gallery/${slug}-3.jpg`
+        `img/g-${slug}-1.jpg`,
+        `img/g-${slug}-2.jpg`,
+        `img/g-${slug}-3.jpg`
     ];
 }
 
@@ -725,8 +725,11 @@ function resolveGearMainTag(item) {
 
 function enrichItems(items, type) {
     return items.map((item, index) => {
-        const slug = slugify(`${type}-${item.brand}-${item.name}`);
-        const assetImage = `assets/images/${slug}.jpg`;
+        const slugBase = type === "games"
+            ? item.name
+            : `${item.brand}-${item.name}`;
+        const slug = slugify(slugBase);
+        const assetImage = `img/m-${slug}.jpg`;
         const generatedPrimaryImage = buildGeneratedArt(type, item, 0);
         const image = assetImage;
         const imageFallback = generatedPrimaryImage;
